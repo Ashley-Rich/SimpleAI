@@ -5,10 +5,7 @@ using UnityEditor;
 
 public class SimpleAI : EditorWindow
 {
-    Attach attach;
-
-    public GameObject aiObject;
-
+    public static GameObject aiObject;
 
     private bool switchColor;
 
@@ -18,8 +15,19 @@ public class SimpleAI : EditorWindow
         GetWindow<SimpleAI>("SimpleAI");
     }
 
+    public void update()
+    {
+        Handles.BeginGUI();
+        Handles.color = Color.black;
+        Handles.DrawLine(new Vector3(0, 0), new Vector3(300, 300));
+        Handles.EndGUI();
+
+    }
+
     public void OnGUI()
     {
+        EditorGUILayout.Space();
+
         aiObject = (GameObject)EditorGUILayout.ObjectField("AI Object", aiObject, typeof(object), true);
 
         EditorGUILayout.LabelField("AI Behaviour Scripts", EditorStyles.boldLabel);
@@ -28,9 +36,20 @@ public class SimpleAI : EditorWindow
 
         SelectBehaviours.SelectComponents();
 
+        EditorGUILayout.Space();
+
         if(GUILayout.Button("Attach Behaviour Scripts"))
         {
-            attach.AttachComponents(); 
+            AttachComponents.AttachScripts();
+            AttachComponents.AutoAttachComponents();
+        }
+
+        EditorGUILayout.Space();
+
+        if(GUILayout.Button("Remove All Components"))
+        {
+            RemoveComponents.RemoveScripts();
+            RemoveComponents.RemoveAutoComponents();
         }
 
         EditorGUILayout.Space();
@@ -40,5 +59,22 @@ public class SimpleAI : EditorWindow
             Instantiate(aiObject, new Vector3(0, 0, 0), Quaternion.identity);
             aiObject.name = "AI";
         }
+
+        EditorGUILayout.Space();
+
+        DrawLine();
+
+        EditorGUILayout.Space();
+
+        PathManager.PathGUISetup();
+    }
+
+    public void DrawLine(int height = 2)
+    {
+        Rect rect = EditorGUILayout.GetControlRect(false, height);
+
+        rect.height = height;
+
+        EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 1));
     }
 }

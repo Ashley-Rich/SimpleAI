@@ -23,9 +23,10 @@ public class SelectBehaviours : Editor
 
         using (new EditorGUI.DisabledScope(!playerDetection))
         {
-            chase = EditorGUILayout.Toggle("LookAround", chase);
+            chase = EditorGUILayout.Toggle("chase", chase);
         }
-
     }
 
 }
+//NOTE: make it so that if the object field for the AI is empty. all components are disabled.
+//NOTE: need to make it so if player detection or wonder toggle is off that chase or look around toggle goes off to.
