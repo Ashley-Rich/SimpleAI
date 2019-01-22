@@ -34,6 +34,11 @@ public class AttachComponents : Editor
         {
             SimpleAI.aiObject.AddComponent<Chase>();
         }
+
+        if(SelectBehaviours.wonder || SelectBehaviours.chase == true && SimpleAI.aiObject.GetComponent<BehaviourSetup>() == null)
+        {
+            SimpleAI.aiObject.AddComponent<BehaviourSetup>();
+        }
     }
 
     public static void AutoAttachComponents()

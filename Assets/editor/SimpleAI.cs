@@ -5,9 +5,8 @@ using UnityEditor;
 
 public class SimpleAI : EditorWindow
 {
+    [SerializeField]
     public static GameObject aiObject;
-
-    private bool switchColor;
 
     [MenuItem("Tools/SimpleAI")]
     public static void ShowWindow()
